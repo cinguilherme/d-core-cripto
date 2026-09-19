@@ -1,5 +1,7 @@
 .PHONY: tests lint format format-fix build clean install publish bump-version-patch bump-version-minor bump-version-major
 
+BUMP ?= patch
+
 lint:
 	clojure -M:lint --lint src test
 
@@ -22,7 +24,7 @@ install:
 	clojure -T:build install
 
 publish:
-	clojure -T:build publish :bump $(or $(BUMP),patch)
+	clojure -T:build publish :bump :$(or $(BUMP),patch)
 
 bump-version-patch:
 	@$(MAKE) publish BUMP=patch
